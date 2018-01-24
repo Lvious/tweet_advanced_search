@@ -78,12 +78,12 @@ class TweetSearchAdvanced:
         self.near_this_location = 'near:"{}" within:{}mi'.format(location_str, distance)
 
     def set_from_date(self, yyyymmdd):
-        # e.g. yyyymmdd = "20170720"
-        self.from_date = "since:{}-{}-{}".format(yyyymmdd[:4], yyyymmdd[4:6], yyyymmdd[6:])
+        # e.g. yyyymmdd = "2017-07-20"
+        self.from_date = "since:{}-{}-{}".format(yyyymmdd[:4], yyyymmdd[5:7], yyyymmdd[8:])
 
     def set_to_date(self, yyyymmdd):
-        # e.g. yyyymmdd = "20170720"
-        self.to_date = "until:{}-{}-{}".format(yyyymmdd[:4], yyyymmdd[4:6], yyyymmdd[6:])
+        # e.g. yyyymmdd = "2017-07-20"
+        self.to_date = "until:{}-{}-{}".format(yyyymmdd[:4], yyyymmdd[5:7], yyyymmdd[8:])
 
     def add_word_to_contain_all(self, word):
         self.contain_all_of_these_words_in_list.append(word)
