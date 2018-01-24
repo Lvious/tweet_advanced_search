@@ -1,0 +1,6 @@
+version: '2'
+services:
+  master-lv:
+    scale: 1
+  worker-lv:
+    scale: 3 
