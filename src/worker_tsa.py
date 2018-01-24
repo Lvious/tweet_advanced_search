@@ -20,7 +20,7 @@ def print_log(msg_str):
     with open(FETCH_LOG, "a+") as f:
         msg_str = "[{} {}] {}".format(y4m2d2, hms, msg_str)
         #print(msg_str)
-        print(msg_str, file=f)
+        f.write(msg_str+"\n")
     f.close()
 
 def get_now(tz="Etc/GMT", date_slicer="", time_slicer=":"):
