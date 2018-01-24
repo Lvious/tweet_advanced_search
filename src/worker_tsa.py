@@ -167,7 +167,7 @@ class TweetSearchAdvanced:
         try:
             url, header = self._get_url(), self._header
             resp_cont = requests.get(url, headers=header).content
-            print_log("Will Req [{}]".format(url))
+            #print_log("Will Req [{}]".format(url))
             soup = bs(resp_cont, "html.parser")
             div = soup.find(attrs={"id": "timeline"}).find(attrs={"class": "stream-container"})
             self.fetch_max_position = div.get("data-max-position")
@@ -177,7 +177,7 @@ class TweetSearchAdvanced:
                 gmt0_dt, content = parse_tweet_div(tweet_div)
                 content_list.append(content)
         except Exception as e:
-            print_log("First Request Error. {}".format(e))
+            #print_log("First Request Error. {}".format(e))
             gmt0_dt, content_list = self._first_fetch_tweet()
         return gmt0_dt, content_list
 
@@ -185,7 +185,7 @@ class TweetSearchAdvanced:
         gmt0_dt, content_list = None, list()
         try:
             url, header = self._get_url(), self._header
-            print_log("Will Req [{}]".format(url))
+            #print_log("Will Req [{}]".format(url))
             resp_cont = requests.get(url, headers=header).text
             res_dict = json.loads(resp_cont)
             self.fetch_max_position = res_dict["min_position"]
@@ -196,7 +196,7 @@ class TweetSearchAdvanced:
                 gmt0_dt, content = parse_tweet_div(tweet_div)
                 content_list.append(content)
         except Exception as e:
-            print_log("Next Request Error. {}".format(e))
+            #print_log("Next Request Error. {}".format(e))
             gmt0_dt, content_list = self._fetch_next()
         return gmt0_dt, content_list
 
