@@ -241,7 +241,7 @@ def parse_tweet_div(tweet_div):
     return gmt0_dt, content_dict
 
 def advance_search_dataset(from_date,to_date,this,max_position,min_position):
-    fetch_max_position = "{}-{}".format(max_position,min_position)
+    fetch_max_position = "TWEET-{}-{}".format(max_position,min_position)
     tsa = TweetSearchAdvanced(fetch_max_position=fetch_max_position)
     tsa.set_lang("en")
     tsa.set_from_date(from_date)
