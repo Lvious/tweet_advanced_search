@@ -256,9 +256,11 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
             for tweet in content_list:
                 if db[SPIDER].find_one({'_id':tweet['id']}) == None:
                     db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
-            print("wirte %s done"%count)
+                    count+=1
         else:
             stop_fetch = True
+        print("wirte %s done"%count)
+
 def run_dataset_task(message_data):
     try:
         from_date = message_data['from_date']
