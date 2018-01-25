@@ -4,7 +4,7 @@ import redis
 def get_spider_config():
     
     spider = "hello"
-    client = pymongo.MongoClient(host='54.161.160.206',port=29017)
+    client = pymongo.MongoClient(host='54.210.116.149',port=27017)
     db = client.tweet_lv
     r = redis.StrictRedis(host="54.161.160.206",port=6479,db=0)
 
