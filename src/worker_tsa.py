@@ -256,7 +256,7 @@ def advance_search_dataset(from_date,to_date,max_position,min_position):
                 if db[SPIDER].find_one({'_id':tweet['id']}) == None:
                     db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'max_position':max_position,'min_position':min_position})
         else:
-            stop_fetch = False
+            stop_fetch = True
 def run_dataset_task(message_data):
     try:
         from_date = message_data['from_date']
@@ -276,7 +276,9 @@ if __name__ == '__main__':
         queue = r.lpop('task:dataset')
         if queue:
             print 'craw_worker process!'
-            craw = run_dataset_task(json.loads(queue))
+            message = json.loads(queue)
+            print("message")
+            craw = run_dataset_task(message)
             if craw:
                 db.dataset_log.insert_one({'message':json.loads(queue),'status':1})
             else:
