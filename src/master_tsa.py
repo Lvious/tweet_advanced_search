@@ -20,8 +20,8 @@ def get_task():
         max_position = (timestamp_max-tweet_epoch)<<22
         min_position = (timestamp_min-tweet_epoch-1)<<22
         message = {
-            'from_date':from_date,
-            'to_date':to_date,
+            'from_date':start_time.strftime("%Y-%m-%d %H:%M:%S"),
+            'to_date':end_time.strftime("%Y-%m-%d %H:%M:%S"),
             "max_position":max_position,
             "min_position":min_position
         }
