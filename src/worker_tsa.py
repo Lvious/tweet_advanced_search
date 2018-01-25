@@ -241,7 +241,7 @@ def parse_tweet_div(tweet_div):
     return gmt0_dt, content_dict
 
 def advance_search_dataset(from_date,to_date,this,max_position,min_position):
-    fetch_max_position = "{}-{}".format(max_position,min_position)
+    fetch_max_position = "{}-{}".format(max_position,max_position-)
     tsa = TweetSearchAdvanced(fetch_max_position=fetch_max_position)
     tsa.set_lang("en")
     tsa.set_from_date(from_date)
@@ -249,7 +249,7 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
     stop_fetch = False
     while not stop_fetch:
         last_dt, content_list = tsa.fetch_tweets()
-        position = tsa.fetch_max_position.split("-")[0]
+        position = tsa.fetch_max_position.split("-")[1]
         if position>min_position:
             #写mongo数据库
             for tweet in content_list:
