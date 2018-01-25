@@ -240,7 +240,7 @@ def parse_tweet_div(tweet_div):
     #print(content_dict["tweet"])
     return gmt0_dt, content_dict
 
-def advance_search_dataset(from_date,to_date,max_position,min_position):
+def advance_search_dataset(from_date,to_date,this,max_position,min_position):
     fetch_max_position = "{}-{}".format(max_position,min_position)
     tsa = TweetSearchAdvanced(fetch_max_position=fetch_max_position)
     tsa.set_lang("en")
@@ -254,17 +254,18 @@ def advance_search_dataset(from_date,to_date,max_position,min_position):
             #写mongo数据库
             for tweet in content_list:
                 if db[SPIDER].find_one({'_id':tweet['id']}) == None:
-                    db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'end_date':end_date,'max_position':max_position,'min_position':min_position})
+                    db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'end_date':end_date,'this':this,'max_position':max_position,'min_position':min_position})
         else:
             stop_fetch = True
 def run_dataset_task(message_data):
     try:
         from_date = message_data['from_date']
         to_date = message_data['to_date']
+        this = message_data['this']        
         max_position = message_data['max_position']
         min_position = message_data['min_position']
         FETCH_LOG = "{}/{}_{}_{}_{}.log".format(DATA_DIR, from_date, to_date,max_position,min_position)
-        advance_search_dataset(from_date,to_date,max_position,min_position)
+        advance_search_dataset(from_date,to_date,this,max_position,min_position)
         return True
     except:
         return False
