@@ -7,7 +7,7 @@ import time
 from config import get_spider_config
 _,db,r = get_spider_config()
 
-tweet_epoch = 1288834974657
+tweet_epoch = 1288806174657
 def get_task():
     from_date  =  "2018-01-22"
     to_date    =  "2018-01-23"
