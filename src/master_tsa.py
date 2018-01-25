@@ -7,13 +7,13 @@ import time
 from config import get_spider_config
 _,db,r = get_spider_config()
 
-tweet_epoch = 1288834974657#1288806174657
+tweet_epoch = 1288834974657
 def get_task():
     from_date  =  "2018-01-22"
     to_date    =  "2018-01-23"
     start_time = datetime.strptime(from_date,"%Y-%m-%d")
     end_time   = datetime.strptime(to_date,"%Y-%m-%d")-timedelta(seconds=1)
-    for i in range(86400)[360:481]:
+    for i in range(86400):
         timestamp_max = int(time.mktime((end_time-timedelta(seconds=i)).timetuple())*1000)
         timestamp_min = int(time.mktime((end_time-timedelta(seconds=i+1)).timetuple())*1000)
         max_position = (timestamp_max-tweet_epoch)<<22
@@ -27,6 +27,6 @@ def get_task():
         }
         print(message)
         r.rpush("task:dataset",json.dumps(message))
-        
+
 if __name__ == '__main__':
 	get_task()

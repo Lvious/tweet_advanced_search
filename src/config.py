@@ -11,6 +11,6 @@ def get_spider_config():
     return spider,db,r
 
 def get_collections_name():
-    SPIDER = "day_2"
+    SPIDER = "day"
     CLUSTER = "day_cluster"
     return SPIDER,CLUSTER

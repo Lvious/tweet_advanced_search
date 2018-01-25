@@ -249,7 +249,7 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
     stop_fetch = False
     while not stop_fetch:
         last_dt, content_list = tsa.fetch_tweets()
-        position = tsa.fetch_max_position.split("-")[0]
+        position = int(tsa.fetch_max_position.split("-")[1])
         if position>min_position:
             #写mongo数据库
             for tweet in content_list:
@@ -284,5 +284,6 @@ if __name__ == '__main__':
                 db.dataset_log.insert_one({'message':json.loads(queue),'status':1})
             else:
                 db.dataset_log.insert_one({'message':json.loads(queue),'status':0})
-        time.sleep(1)
+        else:
+            time.sleep(1)
         print 'craw_worker wait!'
