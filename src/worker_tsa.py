@@ -249,12 +249,12 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
     stop_fetch = False
     while not stop_fetch:
         last_dt, content_list = tsa.fetch_tweets()
-        position = tsa.fetch_max_position.split("-")[1]
+        position = tsa.fetch_max_position.split("-")[0]
         if position>min_position:
             #写mongo数据库
             for tweet in content_list:
                 if db[SPIDER].find_one({'_id':tweet['id']}) == None:
-                    db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'end_date':end_date,'this':this,'max_position':max_position,'min_position':min_position})
+                    db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
         else:
             stop_fetch = True
 def run_dataset_task(message_data):
