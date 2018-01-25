@@ -274,10 +274,10 @@ if __name__ == '__main__':
         os.mkdir(DATA_DIR)
     while True:
         queue = r.lpop('task:dataset')
+        print(queue)
         if queue:
             print 'craw_worker process!'
             message = json.loads(queue)
-            print("message")
             craw = run_dataset_task(message)
             if craw:
                 db.dataset_log.insert_one({'message':json.loads(queue),'status':1})
