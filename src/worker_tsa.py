@@ -10,7 +10,7 @@ import sys
 
 from config import get_spider_config,get_collections_name
 _,db,r = get_spider_config()
-SPIDER,_ = get_collections_name()
+SPIDER,_ ,LOG = get_collections_name()
 
 DATA_DIR = "data"
 
@@ -254,12 +254,13 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
         if position>min_position:
             #写mongo数据库
             for tweet in content_list:
-                if db[SPIDER].find_one({'_id':tweet['id']}) == None:
-                    db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
-                    count+=1
+                #if db[SPIDER].find_one({'_id':tweet['id']}) == None:
+                db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
+                count+=1
+            print("wirte %s done"%count)
         else:
             stop_fetch = True
-        print("wirte %s done"%count)
+    return count
 
 def run_dataset_task(message_data):
     try:
@@ -269,10 +270,10 @@ def run_dataset_task(message_data):
         max_position = message_data['max_position']
         min_position = message_data['min_position']
         FETCH_LOG = "{}/{}_{}_{}_{}.log".format(DATA_DIR, from_date, to_date,max_position,min_position)
-        advance_search_dataset(from_date,to_date,this,max_position,min_position)
-        return True
+        count = advance_search_dataset(from_date,to_date,this,max_position,min_position)
+        return True,count
     except:
-        return False
+        return False,count
 if __name__ == '__main__':
     print 'craw_worker start!'
     if not os.path.exists(DATA_DIR):
@@ -283,11 +284,11 @@ if __name__ == '__main__':
         if queue:
             print 'craw_worker process!'
             message = json.loads(queue)
-            craw = run_dataset_task(message)
+            craw,count = run_dataset_task(message)
             if craw:
-                db.dataset_log.insert_one({'message':json.loads(queue),'status':1})
+                db[LOG].insert_one({'message':json.loads(queue),'status':1,'count':count})
             else:
-                db.dataset_log.insert_one({'message':json.loads(queue),'status':0})
+                db[LOG].insert_one({'message':json.loads(queue),'status':0,'count':count})
         else:
             time.sleep(1)
         print 'craw_worker wait!'
