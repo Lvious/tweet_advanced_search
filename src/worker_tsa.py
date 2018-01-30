@@ -263,6 +263,7 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
     return count
 
 def run_dataset_task(message_data):
+    count = 0
     try:
         from_date = message_data['from_date']
         to_date = message_data['to_date']
