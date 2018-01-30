@@ -4,9 +4,9 @@ import os
 def get_spider_config():
     
     spider = "hello"
-    client = pymongo.MongoClient(host=os.environ['MONGOHOST'],port=os.environ['MONGOPORT'])
+    client = pymongo.MongoClient(host=os.environ['MONGOHOST'],port=int(os.environ['MONGOPORT']))
     db = client.tweet_lv
-    r = redis.StrictRedis(host=os.environ['REDISHOST'],port=os.environ['REDISPORT'],db=0)
+    r = redis.StrictRedis(host=os.environ['REDISHOST'],port=int(os.environ['REDISPORT']),db=0)
 
     return spider,db,r
 
