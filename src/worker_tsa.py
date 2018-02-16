@@ -10,7 +10,7 @@ import sys
 
 from config import get_spider_config,get_collections_name
 _,db,r = get_spider_config()
-# SPIDER,_ ,LOG = get_collections_name()
+SPIDER,_ ,LOG = get_collections_name()
 
 DATA_DIR = "data"
 
