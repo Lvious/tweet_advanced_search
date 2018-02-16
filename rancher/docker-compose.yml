@@ -5,6 +5,10 @@ services:
     command: /bin/bash ./run.sh
     environment:
       SCRIPT: master_tsa.py
+      MONGOHOST: 54.161.160.206
+      REDISHOST: 54.161.160.206
+      MONGOPORT: 29017
+      REDISPORT: 31017      
     labels:
       io.rancher.scheduler.affinity:host_label: spider=master
       io.rancher.container.pull_image: always
@@ -14,8 +18,10 @@ services:
     command: /bin/bash ./run.sh
     environment:
       SCRIPT: worker_tsa.py
-      MONGOHOST: localhost
-      REDISHOST: localhost
+      MONGOHOST: 54.161.160.206
+      REDISHOST: 54.161.160.206
+      MONGOPORT: 29017
+      REDISPORT: 31017
     labels:
       io.rancher.scheduler.affinity:host_label: spider=worker
       io.rancher.container.pull_image: always
@@ -25,8 +31,10 @@ services:
     command: /bin/bash ./run.sh
     environment:
       SCRIPT: writer_tsa.py
-      MONGOHOST: localhost
-      REDISHOST: localhost
+      MONGOHOST: 54.161.160.206
+      REDISHOST: 54.161.160.206
+      MONGOPORT: 29017
+      REDISPORT: 31017
     labels:
       io.rancher.scheduler.affinity:host_label: spider=worker
       io.rancher.container.pull_image: always
