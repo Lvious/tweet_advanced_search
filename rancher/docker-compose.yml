@@ -7,8 +7,8 @@ services:
       SCRIPT: master_tsa.py
       MONGOHOST: 54.161.160.206
       REDISHOST: 54.161.160.206
-      MONGOPORT: 29017
-      REDISPORT: 31017      
+      MONGOPORT: 31017
+      REDISPORT: 6479      
     labels:
       io.rancher.scheduler.affinity:host_label: spider=master
       io.rancher.container.pull_image: always
@@ -20,8 +20,8 @@ services:
       SCRIPT: worker_tsa.py
       MONGOHOST: 54.161.160.206
       REDISHOST: 54.161.160.206
-      MONGOPORT: 29017
-      REDISPORT: 31017
+      MONGOPORT: 31017
+      REDISPORT: 6479
     labels:
       io.rancher.scheduler.affinity:host_label: spider=worker
       io.rancher.container.pull_image: always
@@ -33,8 +33,8 @@ services:
       SCRIPT: writer_tsa.py
       MONGOHOST: 54.161.160.206
       REDISHOST: 54.161.160.206
-      MONGOPORT: 29017
-      REDISPORT: 31017
+      MONGOPORT: 31017
+      REDISPORT: 6479
     labels:
       io.rancher.scheduler.affinity:host_label: spider=worker
       io.rancher.container.pull_image: always
