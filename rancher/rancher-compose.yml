@@ -4,3 +4,5 @@ services:
     scale: 1
   worker-lv:
     scale: 3 
+  writer-lv:
+    scale: 3 

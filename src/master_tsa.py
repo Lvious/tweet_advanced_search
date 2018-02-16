@@ -9,8 +9,8 @@ _,db,r = get_spider_config()
 
 tweet_epoch = 1288834974657
 def get_task():
-    from_date  =  "2018-01-23"
-    to_date    =  "2018-01-24"
+    from_date  =  "2012-10-10"
+    to_date    =  "2012-10-11"
     start_time = datetime.strptime(from_date,"%Y-%m-%d")
     end_time   = datetime.strptime(to_date,"%Y-%m-%d")-timedelta(seconds=1)
     for i in range(86400):
@@ -26,7 +26,7 @@ def get_task():
             "min_position":min_position
         }
         print(message)
-        r.rpush("task:dataset",json.dumps(message))
+        r.rpush("task:event",json.dumps(message))
 
 if __name__ == '__main__':
 	get_task()

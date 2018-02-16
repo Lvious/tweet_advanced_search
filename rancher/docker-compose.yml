@@ -19,3 +19,14 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: spider=worker
       io.rancher.container.pull_image: always
+
+  writer-lv:
+    image: lvious/lvxq:tsa
+    command: /bin/bash ./run.sh
+    environment:
+      SCRIPT: writer_tsa.py
+      MONGOHOST: localhost
+      REDISHOST: localhost
+    labels:
+      io.rancher.scheduler.affinity:host_label: spider=worker
+      io.rancher.container.pull_image: always

@@ -10,7 +10,7 @@ import sys
 
 from config import get_spider_config,get_collections_name
 _,db,r = get_spider_config()
-SPIDER,_ ,LOG = get_collections_name()
+# SPIDER,_ ,LOG = get_collections_name()
 
 DATA_DIR = "data"
 
@@ -252,10 +252,12 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
         last_dt, content_list = tsa.fetch_tweets()
         position = int(tsa.fetch_max_position.split("-")[1])
         if position>min_position:
-            #写mongo数据库
+            #写redis消息队列
             for tweet in content_list:
                 #if db[SPIDER].find_one({'_id':tweet['id']}) == None:
-                db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
+                # db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
+                message = {'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position}
+                r.rpush("task:insert",json.dumps(message))
                 count+=1
             print("wirte %s done"%count)
         else:
@@ -280,7 +282,7 @@ if __name__ == '__main__':
     if not os.path.exists(DATA_DIR):
         os.mkdir(DATA_DIR)
     while True:
-        queue = r.lpop('task:dataset')
+        queue = r.lpop('task:event')
         print(queue)
         if queue:
             print 'craw_worker process!'
