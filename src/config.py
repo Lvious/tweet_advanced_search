@@ -11,7 +11,7 @@ def get_spider_config():
     return spider,db,r
 
 def get_collections_name():
-    SPIDER = "day"
+    SPIDER = "event"
     CLUSTER = "day_cluster"
-    LOG = "day_log"
+    LOG = "event_log"
     return SPIDER,CLUSTER,LOG
