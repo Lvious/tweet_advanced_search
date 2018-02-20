@@ -7,7 +7,7 @@ import pytz
 import requests
 from bs4 import BeautifulSoup as bs
 import sys
-from pymongo import InsertOne
+from pymongo import InsertOne,UpdateOne
 from pymongo.errors import BulkWriteError
 from config import get_spider_config,get_collections_name
 _,db,r = get_spider_config()
@@ -28,7 +28,7 @@ if __name__ == '__main__':
             if count %1000 == 0:
                 print 'writer process!'
                 try:
-                    db[SPIDER].bulk_write([InsertOne(i) for i in bulk_reqs])
+                    db[SPIDER].bulk_write([UpdateOne(i) for i in bulk_reqs])
                 except BulkWriteError as bwe:
                     for i in bulk_reqs:
                         r.rpush('task:insert',json.dumps(i))
