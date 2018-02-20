@@ -28,10 +28,10 @@ if __name__ == '__main__':
             if count %1000 == 0:
                 print 'writer process!'
                 try:
-                    db[SPIDER].bulk_write([UpdateOne(i) for i in bulk_reqs])
+                    db[SPIDER].bulk_write([InsertOne(i) for i in bulk_reqs])
                 except BulkWriteError as bwe:
                     for i in bulk_reqs:
-                        r.rpush('task:insert',json.dumps(i))
+                        r.rpush('task:error',json.dumps(i))
                     print(bwe.details)                        
                 bulk_reqs=[]
                 print 'writer bulk!'
