@@ -1,10 +1,7 @@
 import pymongo
 import redis
 import os
-import configparser as ConfigParser
 
-config = ConfigParser.ConfigParser()
-config.read('./config.ini')
 def get_spider_config():
     spider = "hello"
     client = pymongo.MongoClient(host=os.environ['MONGOHOST'],port=int(os.environ['MONGOPORT']))
@@ -20,8 +17,8 @@ def get_collections_name():
     return SPIDER,CLUSTER,LOG
 
 def get_start2end_time():
-	start = config.get('time','start')
-	end = config.get('time','end')
+	start = "2017-10-30"
+	end = "2017-10-31"
 	return start,end
 
 # if __name__ == '__main__':
