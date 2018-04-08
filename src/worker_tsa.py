@@ -289,9 +289,11 @@ if __name__ == '__main__':
             message = json.loads(queue)
             craw,count = run_dataset_task(message)
             if craw:
-                db[LOG].insert_one({'message':json.loads(queue),'status':1,'count':count})
+                #db[LOG].insert_one({'message':json.loads(queue),'status':1,'count':count})
+                pass
             else:
-                db[LOG].insert_one({'message':json.loads(queue),'status':0,'count':count})
+                #db[LOG].insert_one({'message':json.loads(queue),'status':0,'count':count})
+                r.rpush("task:log",json.dumps({'message':json.loads(queue),'status':0,'count':count}))
         else:
             time.sleep(1)
         print 'craw_worker wait!'

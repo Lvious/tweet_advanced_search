@@ -4,13 +4,12 @@ import time
 from datetime import datetime,timedelta
 from collections import Counter
 import time
-from config import get_spider_config
+from config import get_spider_config,get_start2end_time
 _,db,r = get_spider_config()
 
 tweet_epoch = 1288834974657
 def get_task():
-    from_date  =  "2012-10-10"
-    to_date    =  "2012-10-11"
+    from_date , to_date = get_start2end_time()
     start_time = datetime.strptime(from_date,"%Y-%m-%d")
     end_time   = datetime.strptime(to_date,"%Y-%m-%d")-timedelta(seconds=1)
     for i in range(86400):
