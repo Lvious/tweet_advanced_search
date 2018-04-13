@@ -253,13 +253,16 @@ def advance_search_dataset(from_date,to_date,this,max_position,min_position):
         position = int(tsa.fetch_max_position.split("-")[1])
         if position>min_position:
             #写redis消息队列
+            message_agg = []
             for tweet in content_list:
                 #if db[SPIDER].find_one({'_id':tweet['id']}) == None:
                 # db[SPIDER].insert_one({'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position})
                 message = {'_id':tweet['id'],'tweet':tweet,'from_date':from_date,'to_date':to_date,'this':this,'max_position':max_position,'min_position':min_position}
-                r.rpush("task:insert",json.dumps(message))
+                message_agg.append(message)
                 count+=1
+            r.rpush("task:insert",json.dumps(message_agg))
             print("wirte %s done"%count)
+
         else:
             stop_fetch = True
     return count
