@@ -17,8 +17,8 @@ def get_collections_name():
     return SPIDER,CLUSTER,LOG
 
 def get_start2end_time():
-	start = "2017-10-30"
-	end = "2017-10-31"
+	start = "2012-10-10 00:00:00"
+	end = "2012-10-10 02:10:00"
 	return start,end
 
 # if __name__ == '__main__':
