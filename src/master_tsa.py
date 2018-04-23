@@ -10,9 +10,9 @@ _,db,r = get_spider_config()
 tweet_epoch = 1288834974657
 def get_task():
     from_date , to_date = get_start2end_time()
-    start_time = datetime.strptime(from_date,"%Y-%m-%d")
-    end_time   = datetime.strptime(to_date,"%Y-%m-%d")-timedelta(seconds=1)
-    for i in range(86400):
+    start_time = datetime.strptime(from_date,"%Y-%m-%d %H:%M:%S")
+    end_time   = datetime.strptime(to_date,"%Y-%m-%d %H:%M:%S")-timedelta(seconds=1)
+    for i in range(7800):
         timestamp_max = int(time.mktime((end_time-timedelta(seconds=i)).timetuple())*1000)
         timestamp_min = int(time.mktime((end_time-timedelta(seconds=i+1)).timetuple())*1000)
         max_position = (timestamp_max-tweet_epoch)<<22
